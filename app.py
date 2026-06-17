@@ -5,8 +5,9 @@ from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
 
-# Song Database
+# Song Database (Expanded for more detailed genres)
 SONGS = [
+    # --- J-POP ---
     {
         "id": 1,
         "title": "群青 (Gunjou)",
@@ -74,11 +75,136 @@ SONGS = [
     },
     {
         "id": 6,
+        "title": "ダンスホール",
+        "artist": "Mrs. GREEN APPLE",
+        "genre": "jpop",
+        "moods": ["happy", "energy"],
+        "description": "どんな日もダンスホールのように楽しもうというポジティブソング。今日がどんなに忙しくても、楽しむ心を忘れなければ素晴らしい一日になります！",
+        "lucky_item": "手鏡",
+        "lucky_color": "サンシャインオレンジ",
+        "color_code": "#ff9e2c",
+        "lyrics_snippet": "いつだって大丈夫、僕らは何処へでも行ける",
+        "youtube_query": "Mrs GREEN APPLE ダンスホール"
+    },
+    
+    # --- K-POP ---
+    {
+        "id": 7,
+        "title": "Dynamite",
+        "artist": "BTS",
+        "genre": "kpop",
+        "moods": ["happy", "energy"],
+        "description": "弾けるようなビートと爽快なメロディ。今日は気分を最高潮にして、やりたいことに飛び込んでみて！あなたの笑顔が最高のラッキーを引き寄せます。",
+        "lucky_item": "ワイヤレスイヤホン",
+        "lucky_color": "パステルピンク",
+        "color_code": "#ffd1dc",
+        "lyrics_snippet": "Shining through the city with a little funk and soul / So light it up like dynamite",
+        "youtube_query": "BTS Dynamite"
+    },
+    {
+        "id": 8,
+        "title": "Ditto",
+        "artist": "NewJeans",
+        "genre": "kpop",
+        "moods": ["calm", "emotional"],
+        "description": "ノスタルジックで心地よいクラブビート。今日のあなたを優しく包み込むような、穏やかでセンチメンタルな時間を提供します。",
+        "lucky_item": "ヘッドホン",
+        "lucky_color": "チェリーグレー",
+        "color_code": "#8b8589",
+        "lyrics_snippet": "Stay in the middle / Like you a little / Don't want no riddle",
+        "youtube_query": "NewJeans Ditto"
+    },
+    {
+        "id": 9,
+        "title": "How You Like That",
+        "artist": "BLACKPINK",
+        "genre": "kpop",
+        "moods": ["energy", "happy"],
+        "description": "強烈なビートと圧倒的なカリスマ性。自信に満ちあふれ、限界を突破できるパワフルな一日になります！強気で行きましょう。",
+        "lucky_item": "レザーのパスケース",
+        "lucky_color": "マゼンタブラック",
+        "color_code": "#2b001a",
+        "lyrics_snippet": "Now look at you, now look at me / How you like that",
+        "youtube_query": "BLACKPINK How You Like That"
+    },
+
+    # --- Western Pop ---
+    {
+        "id": 10,
+        "title": "Shake It Off",
+        "artist": "Taylor Swift",
+        "genre": "western_pop",
+        "moods": ["energy", "happy"],
+        "description": "他人の目を気にせず、ネガティブな意見は笑い飛ばそうという応援歌。今日は余計な悩みはスルーして、あなたらしく羽ばたく日です。",
+        "lucky_item": "カラフルなキーホルダー",
+        "lucky_color": "スカイブルー",
+        "color_code": "#87ceeb",
+        "lyrics_snippet": "Heartbreakers gonna break... I'm just gonna shake, shake / Shake it off!",
+        "youtube_query": "Taylor Swift Shake It Off"
+    },
+    {
+        "id": 11,
+        "title": "Ocean Eyes",
+        "artist": "Billie Eilish",
+        "genre": "western_pop",
+        "moods": ["calm", "emotional"],
+        "description": "幻想的で透き通るようなボーカル。自分の中の繊細な感情を優しく労わる日。夜風にあたりながら月を眺めると、心が静まります。",
+        "lucky_item": "シルバーの指輪",
+        "lucky_color": "インディゴブルー",
+        "color_code": "#4b0082",
+        "lyrics_snippet": "I've been watching you for some time / Can't stop staring at those ocean eyes",
+        "youtube_query": "Billie Eilish Ocean Eyes"
+    },
+    {
+        "id": 12,
+        "title": "Levitating",
+        "artist": "Dua Lipa",
+        "genre": "western_pop",
+        "moods": ["happy", "energy"],
+        "description": "宇宙をドライブするようなレトロフューチャー・ポップ。今日は軽やかなノリで進むと、素晴らしい発見や幸運に出会える予感です。",
+        "lucky_item": "星のキーチャーム",
+        "lucky_color": "スペースシルバー",
+        "color_code": "#c0c0c0",
+        "lyrics_snippet": "I got you, moonlight, you're my starlight / I need you all night, come on, levitate with me",
+        "youtube_query": "Dua Lipa Levitating"
+    },
+
+    # --- Rock ---
+    {
+        "id": 13,
+        "title": "Don't Stop Me Now",
+        "artist": "Queen",
+        "genre": "rock",
+        "moods": ["energy", "happy"],
+        "description": "エネルギー爆発！どんな課題もハイスピードでクリアできる超好調な一日。心のままに走り抜けてください。",
+        "lucky_item": "炭酸水",
+        "lucky_color": "フレアレッド",
+        "color_code": "#ff3300",
+        "lyrics_snippet": "Don't stop me now, 'cause I'm having a good time / I don't want to stop at all",
+        "youtube_query": "Queen Don't Stop Me Now"
+    },
+    {
+        "id": 14,
+        "title": "前前前世 (Zenzenzense)",
+        "artist": "RADWIMPS",
+        "genre": "rock",
+        "moods": ["energy", "emotional"],
+        "description": "時空を超えるほどの強烈な絆とスピード感。運命的なアイデアや、昔懐かしい友人からの連絡があるかもしれません。直感を信じて動いてみて。",
+        "lucky_item": "腕時計",
+        "lucky_color": "コズミックネイビー",
+        "color_code": "#000080",
+        "lyrics_snippet": "君の前前前世から僕は 君を探し始めたよ",
+        "youtube_query": "RADWIMPS 前前前世"
+    },
+
+    # --- R&B / Soul ---
+    {
+        "id": 15,
         "title": "24K Magic",
         "artist": "Bruno Mars",
-        "genre": "western",
+        "genre": "rnb",
         "moods": ["happy", "energy"],
-        "description": "圧倒的にゴージャスでファンキーな一曲。今日のあなたは自信に満ちあふれ、周囲を明るく照らす存在です。自分へのご褒美を忘れずに！",
+        "description": "圧倒的にゴージャスでファンキーなR&B。今日のあなたは自信に満ちあふれ、周囲を明るく照らす存在です。自分へのご褒美を忘れずに！",
         "lucky_item": "ゴールドのアクセサリー",
         "lucky_color": "シャンパンゴールド",
         "color_code": "#f1c40f",
@@ -86,20 +212,63 @@ SONGS = [
         "youtube_query": "Bruno Mars 24K Magic"
     },
     {
-        "id": 7,
-        "title": "ジムノペディ 第1番 (Gymnopédie No. 1)",
-        "artist": "エリック・サティ",
-        "genre": "chill",
-        "moods": ["calm", "focus"],
-        "description": "穏やかで美しいピアノソロ。今日は頑張るのを少しお休みして、静かに心を整える時間を持ちましょう。ハーブティーが心地よい眠りを誘います。",
-        "lucky_item": "温かいハーブティー",
-        "lucky_color": "ミントグリーン",
-        "color_code": "#98ff98",
-        "lyrics_snippet": "静寂の中に流れる、ゆったりとした時の移ろいを感じて",
-        "youtube_query": "Erik Satie Gymnopedie No 1"
+        "id": 16,
+        "title": "Kill Bill",
+        "artist": "SZA",
+        "genre": "rnb",
+        "moods": ["emotional", "calm"],
+        "description": "チルでメロウなR&Bビート。複雑な感情をそっと肯定してくれるような、リラックスしたプライベートタイムを持つと運気が高まります。",
+        "lucky_item": "グリーンスムージー",
+        "lucky_color": "セージグリーン",
+        "color_code": "#8fbc8f",
+        "lyrics_snippet": "I might kill my ex, not the best idea / His new girlfriend's next, how'd I get here?",
+        "youtube_query": "SZA Kill Bill"
     },
     {
-        "id": 8,
+        "id": 17,
+        "title": "Bad Habit",
+        "artist": "Steve Lacy",
+        "genre": "rnb",
+        "moods": ["calm", "emotional"],
+        "description": "インディーR&Bの最高峰。ノスタルジックで甘酸っぱい感情に浸りながら、自分の本音をゆっくりと大切に振り返りたい一日です。",
+        "lucky_item": "古着のシャツ",
+        "lucky_color": "アプリコットオレンジ",
+        "color_code": "#ffb07c",
+        "lyrics_snippet": "I wish I knew, I wish I knew you wanted me / Oh, what you do to me?",
+        "youtube_query": "Steve Lacy Bad Habit"
+    },
+
+    # --- Latin ---
+    {
+        "id": 18,
+        "title": "Despacito",
+        "artist": "Luis Fonsi ft. Daddy Yankee",
+        "genre": "latin",
+        "moods": ["happy", "energy"],
+        "description": "世界的なラテンの情熱的な大ヒット曲。太陽のように熱いエネルギーが注ぎ込む日です。音楽に合わせて体を軽く揺らすのがラッキーアクション。",
+        "lucky_item": "レモネード",
+        "lucky_color": "サンセットオレンジ",
+        "color_code": "#ff5e00",
+        "lyrics_snippet": "Despacito / Quiero respirar tu cuello despacito",
+        "youtube_query": "Despacito Luis Fonsi"
+    },
+    {
+        "id": 19,
+        "title": "Havana",
+        "artist": "Camila Cabello",
+        "genre": "latin",
+        "moods": ["calm", "emotional"],
+        "description": "哀愁を帯びたピアノラインと魅力的なラテンリズム。少しミステリアスで大人な、知的な魅力を発揮できる一日になります。",
+        "lucky_item": "赤いリップ",
+        "lucky_color": "ローズレッド",
+        "color_code": "#c21e56",
+        "lyrics_snippet": "Havana, ooh na-na / Half of my heart is in Havana, ooh na-na",
+        "youtube_query": "Camila Cabello Havana"
+    },
+
+    # --- Anime / Game ---
+    {
+        "id": 20,
         "title": "紅蓮華 (Gurenge)",
         "artist": "LiSA",
         "genre": "anime",
@@ -112,20 +281,35 @@ SONGS = [
         "youtube_query": "LiSA 紅蓮華"
     },
     {
-        "id": 9,
-        "title": "Dynamite",
-        "artist": "BTS",
-        "genre": "western",
-        "moods": ["happy", "energy"],
-        "description": "弾けるようなビートと爽快なメロディ。今日は気分を最高潮にして、やりたいことに飛び込んでみて！あなたの笑顔が最高のラッキーを引き寄せます。",
-        "lucky_item": "ワイヤレスイヤホン",
-        "lucky_color": "パステルピンク",
-        "color_code": "#ffd1dc",
-        "lyrics_snippet": "Shining through the city with a little funk and soul / So light it up like dynamite",
-        "youtube_query": "BTS Dynamite"
+        "id": 21,
+        "title": "残酷な天使のテーゼ",
+        "artist": "高橋洋子",
+        "genre": "anime",
+        "moods": ["energy", "happy"],
+        "description": "限界を突破する神話的なエネルギー。あなたの隠れたポテンシャルが目覚める一日です。直感を信じて果敢に飛び立ちましょう！",
+        "lucky_item": "ホットコーヒー",
+        "lucky_color": "エヴァンゲリオンパープル",
+        "color_code": "#502080",
+        "lyrics_snippet": "残酷な天使のテーゼ 窓辺からやがて飛び立つ / 熱いパトスで思い出を裏切るなら",
+        "youtube_query": "残酷な天使のテーゼ"
+    },
+
+    # --- Chill / Instrumental ---
+    {
+        "id": 22,
+        "title": "ジムノペディ 第1番 (Gymnopédie No. 1)",
+        "artist": "エリック・サティ",
+        "genre": "chill",
+        "moods": ["calm", "focus"],
+        "description": "穏やかで美しいピアノソロ。今日は頑張るのを少しお休みして、静かに心を整える時間を持ちましょう。ハーブティーが心地よい眠りを誘います。",
+        "lucky_item": "温かいハーブティー",
+        "lucky_color": "ミントグリーン",
+        "color_code": "#98ff98",
+        "lyrics_snippet": "静寂の中に流れる、ゆったりとした時の移ろいを感じて",
+        "youtube_query": "Erik Satie Gymnopedie No 1"
     },
     {
-        "id": 10,
+        "id": 23,
         "title": "Energy Flow",
         "artist": "坂本龍一",
         "genre": "chill",
@@ -138,20 +322,7 @@ SONGS = [
         "youtube_query": "Ryuichi Sakamoto Energy Flow"
     },
     {
-        "id": 11,
-        "title": "ダンスホール",
-        "artist": "Mrs. GREEN APPLE",
-        "genre": "jpop",
-        "moods": ["happy", "energy"],
-        "description": "どんな日もダンスホールのように楽しもうというポジティブソング。今日がどんなに忙しくても、楽しむ心を忘れなければ素晴らしい一日になります！",
-        "lucky_item": "手鏡",
-        "lucky_color": "サンシャインオレンジ",
-        "color_code": "#ff9e2c",
-        "lyrics_snippet": "いつだって大丈夫、僕らは何処へでも行ける",
-        "youtube_query": "Mrs GREEN APPLE ダンスホール"
-    },
-    {
-        "id": 12,
+        "id": 24,
         "title": "Chill Lofi Beat",
         "artist": "Lofi Girl Studio",
         "genre": "chill",
@@ -162,45 +333,6 @@ SONGS = [
         "color_code": "#d2691e",
         "lyrics_snippet": "ゆったりと流れるレコードの溝に、思考を泳がせて",
         "youtube_query": "Lofi Girl study beat"
-    },
-    {
-        "id": 13,
-        "title": "Shake It Off",
-        "artist": "Taylor Swift",
-        "genre": "western",
-        "moods": ["energy", "happy"],
-        "description": "他人の目を気にせず、ネガティブな意見は笑い飛ばそうという応援歌。今日は余計な悩みはスルーして、あなたらしく羽ばたく日です。",
-        "lucky_item": "カラフルなキーホルダー",
-        "lucky_color": "スカイブルー",
-        "color_code": "#87ceeb",
-        "lyrics_snippet": "Heartbreakers gonna break... I'm just gonna shake, shake / Shake it off!",
-        "youtube_query": "Taylor Swift Shake It Off"
-    },
-    {
-        "id": 14,
-        "title": "前前前世 (Zenzenzense)",
-        "artist": "RADWIMPS",
-        "genre": "anime",
-        "moods": ["energy", "emotional"],
-        "description": "時空を超えるほどの強烈な絆とスピード感。運命的なアイデアや、昔懐かしい友人からの連絡があるかもしれません。直感を信じて動いてみて。",
-        "lucky_item": "腕時計",
-        "lucky_color": "コズミックネイビー",
-        "color_code": "#000080",
-        "lyrics_snippet": "君の前前前世から僕は 君を探し始めたよ",
-        "youtube_query": "RADWIMPS 前前前世"
-    },
-    {
-        "id": 15,
-        "title": "Ocean Eyes",
-        "artist": "Billie Eilish",
-        "genre": "western",
-        "moods": ["calm", "emotional"],
-        "description": "幻想的で透き通るようなボーカル。自分の中の繊細な感情を優しく労わる日。夜風にあたりながら月を眺めると、心が静まります。",
-        "lucky_item": "シルバーの指輪",
-        "lucky_color": "インディゴブルー",
-        "color_code": "#4b0082",
-        "lyrics_snippet": "I've been watching you for some time / Can't stop staring at those ocean eyes",
-        "youtube_query": "Billie Eilish Ocean Eyes"
     }
 ]
 
@@ -248,9 +380,13 @@ MOOD_LABELS = {
 GENRE_LABELS = {
     "all": "🎵 すべて",
     "jpop": "🌸 J-POP",
-    "western": "🌍 洋楽",
+    "kpop": "🇰🇷 K-POP",
+    "western_pop": "🌍 洋楽ポップス",
+    "rock": "🎸 ロック",
+    "rnb": "🎙️ R&B / ソウル",
+    "latin": "💃 ラテン",
     "anime": "🎮 アニメ・ゲーム",
-    "chill": "☕ インスト・チル"
+    "chill": "☕ チル / インスト"
 }
 
 @app.route("/", methods=["GET", "POST"])
@@ -338,7 +474,7 @@ def result():
     
     mood_label = MOOD_LABELS.get(mood, "今日の気分")
     genre_label = GENRE_LABELS.get(genre, "すべてのジャンル")
-    song_genre_label = GENRE_LABELS.get(song["genre"], "その他").replace("🌸 ", "").replace("🌍 ", "").replace("🎮 ", "").replace("☕ ", "")
+    song_genre_label = GENRE_LABELS.get(song["genre"], "その他").replace("🌸 ", "").replace("🇰🇷 ", "").replace("🌍 ", "").replace("🎸 ", "").replace("🎙️ ", "").replace("💃 ", "").replace("🎮 ", "").replace("☕ ", "")
     
     return render_template(
         "result.html",
