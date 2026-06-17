@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ネオン・クラッシュ - 究極のマルバツゲーム (Tic-Tac-Toe)</title>
+    <meta name="description" content="洗練されたネオンデザインと高度なAIを搭載した、ブラウザで遊べる究極のマルバツゲーム（三目並べ）。難易度選択や美しいアニメーションをお楽しみください。">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="tictactoe.css">
+</head>
+<body>
+    <div class="stars-background"></div>
+    
+    <header>
+        <div class="back-link-container">
+            <a href="index.html" class="back-link">&larr; ランチャーに戻る</a>
+        </div>
+        <h1 id="app-title">NEON <span class="glow-text">CRUSH</span></h1>
+        <p class="subtitle">未来的な3×3グリッド・バトル</p>
+    </header>
+
+    <main id="game-container">
+        <!-- モード＆設定セクション -->
+        <section id="settings-panel" aria-label="ゲーム設定">
+            <div class="glass-card settings-card">
+                <h2>ゲームモード</h2>
+                <div class="mode-select">
+                    <button id="btn-pvp" class="btn active" aria-pressed="true">
+                        <span class="btn-icon">👥</span> 2プレイヤー
+                    </button>
+                    <button id="btn-pve" class="btn" aria-pressed="false">
+                        <span class="btn-icon">🤖</span> AI対戦
+                    </button>
+                </div>
+
+                <div id="ai-difficulty-container" class="difficulty-select hidden">
+                    <h3>AIの強さ</h3>
+                    <div class="diff-buttons">
+                        <button id="diff-easy" class="btn btn-sm" data-diff="easy">イージー</button>
+                        <button id="diff-medium" class="btn btn-sm active" data-diff="medium">ノーマル</button>
+                        <button id="diff-impossible" class="btn btn-sm" data-diff="impossible">最強 (不可避)</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- スコアボードセクション -->
+        <section id="scoreboard" aria-label="スコアボード">
+            <div class="glass-card score-card">
+                <div class="player-score" id="score-p1-container">
+                    <span class="player-label" id="p1-name">PLAYER 1 (O)</span>
+                    <span class="score-val" id="score-p1">0</span>
+                </div>
+                <div class="score-divider">VS</div>
+                <div class="player-score" id="score-p2-container">
+                    <span class="player-label" id="p2-name">PLAYER 2 (X)</span>
+                    <span class="score-val" id="score-p2">0</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ゲーム状況表示 -->
+        <div id="status-message" aria-live="polite">
+            <span id="status-text">PLAYER 1 の番です</span>
+        </div>
+
+        <!-- ボードセクション -->
+        <section id="board-section" aria-label="対戦グリッド">
+            <div class="board-wrapper">
+                <div id="game-board">
+                    <button class="cell" data-index="0" aria-label="左上 マス"></button>
+                    <button class="cell" data-index="1" aria-label="上中央 マス"></button>
+                    <button class="cell" data-index="2" aria-label="右上 マス"></button>
+                    <button class="cell" data-index="3" aria-label="左中央 マス"></button>
+                    <button class="cell" data-index="4" aria-label="中央 マス"></button>
+                    <button class="cell" data-index="5" aria-label="右中央 マス"></button>
+                    <button class="cell" data-index="6" aria-label="左下 マス"></button>
+                    <button class="cell" data-index="7" aria-label="下中央 マス"></button>
+                    <button class="cell" data-index="8" aria-label="右下 マス"></button>
+                    
+                    <!-- 勝敗決定時の勝利線表示用 -->
+                    <div id="winning-line" class="winning-line hidden"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- コントロールセクション -->
+        <section id="controls" aria-label="ゲーム操作">
+            <button id="btn-reset" class="btn btn-primary">
+                <span class="btn-icon">🔄</span> ゲームをやり直す
+            </button>
+            <button id="btn-clear-scores" class="btn btn-secondary">
+                スコアのリセット
+            </button>
+        </section>
+    </main>
+
+    <!-- 勝利/引き分けポップアップモーダル -->
+    <div id="result-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-content glass-card">
+            <h2 id="modal-title">勝敗決定</h2>
+            <p id="modal-message">プレイヤー1の勝ち！</p>
+            <button id="modal-btn-close" class="btn btn-primary">次へ進む</button>
+        </div>
+    </div>
+
+    <!-- 勝利時の紙吹雪キャンバス -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <footer>
+        <p>&copy; 2026 Neon Crush. Premium Web App Experience.</p>
+    </footer>
+
+    <script src="tictactoe.js"></script>
+</body>
+</html>

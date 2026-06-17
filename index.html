@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ネオン・アーケード - 究極のブラウザゲームポータル</title>
+    <meta name="description" content="洗練されたネオンデザインのブラウザゲームポータル。AI搭載のマルバツゲームや、爽快なスペースシューティングをお楽しみください。">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="stars-background"></div>
+    
+    <header>
+        <h1 id="app-title">NEON <span class="glow-text">ARCADE</span></h1>
+        <p class="subtitle">極上のブラウザ・レトロフューチャー・ゲーム</p>
+    </header>
+
+    <main id="portal-container">
+        <!-- ゲーム1: マルバツゲーム -->
+        <section class="game-card-wrapper">
+            <div class="glass-card game-card">
+                <div class="game-badge neon-cyan-badge">3×3 Grid</div>
+                <div class="game-icon">👥 vs 🤖</div>
+                <h2>NEON CRUSH</h2>
+                <p class="game-desc">
+                    洗練されたグラフィックスと、ミニマックス法による無敗のAIを搭載した究極のマルバツゲーム。友達同士の対戦も可能です。
+                </p>
+                <div class="game-features">
+                    <span>音響効果</span>
+                    <span>最強AI</span>
+                    <span>2P対戦</span>
+                </div>
+                <a href="tictactoe.html" class="btn btn-primary btn-play">
+                    PLAY NOW <span class="arrow">&rarr;</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- ゲーム2: シューティングゲーム -->
+        <section class="game-card-wrapper">
+            <div class="glass-card game-card">
+                <div class="game-badge neon-pink-badge">Space Shooter</div>
+                <div class="game-icon">🚀 vs 👾</div>
+                <h2>NEON STRIKER</h2>
+                <p class="game-desc">
+                    立ちはだかるネオンエイリアンを撃墜する爽快2Dシューティング。パワーアップアイテムを集め、巨大な中ボスを撃破せよ！
+                </p>
+                <div class="game-features">
+                    <span>パーティクル演出</span>
+                    <span>Web Audio BGM</span>
+                    <span>スマホ対応</span>
+                </div>
+                <a href="shooting.html" class="btn btn-secondary-neon btn-play">
+                    PLAY NOW <span class="arrow">&rarr;</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Neon Arcade. Premium Web App Experience.</p>
+    </footer>
+
+    <script>
+        // カードのホバー時にマウス位置に合わせてグラデーションを動かす
+        document.querySelectorAll('.game-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--x', `${x}px`);
+                card.style.setProperty('--y', `${y}px`);
+            });
+        });
+    </script>
+</body>
+</html>

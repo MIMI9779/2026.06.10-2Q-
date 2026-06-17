@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>占いの結果 - 今日の曲占い</title>
+    <meta name="description" content="今日のあなたの運勢と運命の曲です。ラッキーアイテムやラッキーカラーも紹介しています。">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="background-decorations">
+        <div class="music-note note-1"><i class="fa-solid fa-music"></i></div>
+        <div class="music-note note-2"><i class="fa-solid fa-eighth-note"></i></div>
+        <div class="music-note note-3"><i class="fa-solid fa-compact-disc"></i></div>
+        <div class="glowing-star star-1"></div>
+        <div class="glowing-star star-2"></div>
+        <div class="glowing-orb orb-1"></div>
+        <div class="glowing-orb orb-2"></div>
+    </div>
+
+    <main class="app-container result-page">
+        <header class="app-header">
+            <p class="result-date">{{ today }} の運勢</p>
+            <h1 class="result-user-title">{{ name }} さんの占い結果</h1>
+            <div class="mood-indicator" style="flex-wrap: wrap; gap: 0.6rem;">
+                <span>選択条件:</span>
+                <span class="badge badge-mood"><i class="fa-solid fa-heart"></i> {{ mood_label }}</span>
+                <span class="badge badge-genre-selected" style="background: rgba(138, 35, 135, 0.1); border: 1px solid rgba(138, 35, 135, 0.3); color: #ffaf7b; padding: 0.35rem 0.9rem; border-radius: 30px; font-size: 0.8rem; font-weight: 700;"><i class="fa-solid fa-sliders"></i> {{ genre_label }}</span>
+            </div>
+        </header>
+
+        <!-- Fortune Info Section -->
+        <section class="card glassmorphism fortune-summary-card">
+            <div class="fortune-circle-wrapper">
+                <div class="fortune-glowing-ring" style="--accent-color: {{ song.color_code }};"></div>
+                <div class="fortune-circle">
+                    <span class="fortune-label">今日の運勢</span>
+                    <h2 class="fortune-level" id="fortune-level">{{ fortune.level }}</h2>
+                    <div class="fortune-score-container">
+                        <span class="score-num" id="fortune-score">{{ fortune_score }}</span>
+                        <span class="score-denom">/100点</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fortune-advice">
+                <h3><i class="fa-solid fa-star-of-david"></i> 今日の運勢アドバイス</h3>
+                <p>{{ fortune.message }}</p>
+            </div>
+        </section>
+
+        <!-- Destiny Song Section -->
+        <h2 class="section-title"><i class="fa-solid fa-compact-disc"></i> あなたの運命の曲</h2>
+
+        <section class="card glassmorphism song-card" id="song-card">
+            <div class="song-visual-container">
+                <!-- Vinyl Record Player Visual -->
+                <div class="vinyl-player">
+                    <div class="tonearm" id="tonearm"></div>
+                    <div class="vinyl-record rotating" style="--accent-color: {{ song.color_code }};">
+                        <div class="vinyl-groove"></div>
+                        <div class="vinyl-groove-2"></div>
+                        <div class="vinyl-label">
+                            <i class="fa-solid fa-music vinyl-icon"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="song-details-container">
+                <div class="song-header">
+                    <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem;">
+                        <span class="badge badge-genre">DESTINY SONG</span>
+                        <span class="badge" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: #fff; font-size: 0.75rem;">{{ song_genre_label }}</span>
+                    </div>
+                    <h3 class="song-title" id="song-title">{{ song.title }}</h3>
+                    <p class="song-artist" id="song-artist">{{ song.artist }}</p>
+                </div>
+
+                <!-- Lyrical Quote -->
+                <blockquote class="lyrics-quote">
+                    <p class="lyrics-text">“ {{ song.lyrics_snippet }} ”</p>
+                    <cite class="lyrics-caption">心に響くワンフレーズ</cite>
+                </blockquote>
+
+                <div class="song-description">
+                    <p>{{ song.description }}</p>
+                </div>
+
+                <!-- Lucky Items/Colors Grid -->
+                <div class="lucky-grid">
+                    <div class="lucky-card lucky-item-card">
+                        <span class="lucky-title"><i class="fa-solid fa-gift"></i> ラッキーアイテム</span>
+                        <span class="lucky-value">{{ song.lucky_item }}</span>
+                    </div>
+                    <div class="lucky-card lucky-color-card">
+                        <span class="lucky-title"><i class="fa-solid fa-palette"></i> ラッキーカラー</span>
+                        <span class="lucky-value">
+                            <span class="color-preview" style="background-color: {{ song.color_code }};"></span>
+                            {{ song.lucky_color }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Actions/Buttons -->
+        <section class="action-buttons">
+            <a href="https://www.youtube.com/results?search_query={{ song.youtube_query | replace(' ', '+') }}" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="btn btn-secondary btn-youtube"
+               id="youtube-btn">
+                <i class="fa-brands fa-youtube"></i>
+                <span>YouTubeで聴いてみる</span>
+            </a>
+
+            <button class="btn btn-secondary btn-share" id="share-btn">
+                <i class="fa-solid fa-share-nodes"></i>
+                <span>結果をシェア・コピー</span>
+            </button>
+
+            <a href="{{ url_for('index') }}" class="btn btn-primary" id="retry-btn">
+                <i class="fa-solid fa-rotate-left"></i>
+                <span>もう一度占う</span>
+            </a>
+        </section>
+
+        <footer class="app-footer">
+            <p>© 2026 今日の曲占い. All Rights Reserved. ※今日中なら何度占っても同じ結果になります。</p>
+        </footer>
+    </main>
+
+    <!-- Success Toast Notification for copy -->
+    <div class="toast" id="toast">
+        <i class="fa-solid fa-circle-check"></i> 結果をクリップボードにコピーしました！
+    </div>
+
+    <script>
+        // Copy / Share feature
+        document.getElementById('share-btn').addEventListener('click', function() {
+            const userName = "{{ name }}";
+            const fortuneLevel = "{{ fortune.level }}";
+            const score = "{{ fortune_score }}";
+            const songTitle = "{{ song.title }}";
+            const songArtist = "{{ song.artist }}";
+            const currentUrl = window.location.href;
+            
+            const shareText = `🎵 #今日の曲占い 🎵\n` +
+                              `${userName}さんの今日の運勢は【${fortuneLevel}】（${score}点）でした！\n` +
+                              `運命の曲は：${songArtist} - 「${songTitle}」 (${songTitle} / ジャンル: {{ song_genre_label }})\n` +
+                              `ラッキーカラー：{{ song.lucky_color }}\n` +
+                              `占ってみる 👉 ${window.location.origin}`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: '今日の曲占い結果',
+                    text: shareText,
+                    url: window.location.origin
+                }).catch(err => {
+                    console.log('Share failed', err);
+                });
+            } else {
+                // Clipboard copy fallback
+                navigator.clipboard.writeText(shareText).then(() => {
+                    const toast = document.getElementById('toast');
+                    toast.classList.add('show');
+                    setTimeout(() => {
+                        toast.classList.remove('show');
+                    }, 3000);
+                }).catch(err => {
+                    alert('コピーできませんでした。');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

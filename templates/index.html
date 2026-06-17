@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>今日の曲占い - 音楽と運勢のシンクロニシティ</title>
+    <meta name="description" content="今日のあなたの運勢に合わせて、あなたの心に響くぴったりの音楽を占います。名前と生年月日、今の気分、お好みのジャンルを入力してください。">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for music icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Background Animated Stars/Notes -->
+    <div class="background-decorations">
+        <div class="music-note note-1"><i class="fa-solid fa-music"></i></div>
+        <div class="music-note note-2"><i class="fa-solid fa-eighth-note"></i></div>
+        <div class="music-note note-3"><i class="fa-solid fa-music"></i></div>
+        <div class="music-note note-4"><i class="fa-solid fa-compact-disc"></i></div>
+        <div class="glowing-star star-1"></div>
+        <div class="glowing-star star-2"></div>
+    </div>
+
+    <main class="app-container">
+        <header class="app-header">
+            <div class="logo-area">
+                <span class="logo-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+                <h1 class="app-title">今日の曲占い</h1>
+            </div>
+            <p class="app-subtitle">Music Destiny Fortune Telling</p>
+            <p class="app-description">
+                今日のあなたと音楽のシンクロニシティを測定します。<br>
+                名前、生年月日、そして現在の気分と好みのジャンルから、今日の運勢に最も響き合う運命の一曲を導き出します。
+            </p>
+        </header>
+
+        <section class="card glassmorphism">
+            {% if error %}
+            <div class="alert-error" id="error-message">
+                <i class="fa-solid fa-circle-exclamation"></i> {{ error }}
+            </div>
+            {% endif %}
+
+            <form action="{{ url_for('index') }}" method="POST" class="fortune-form">
+                <!-- Name Input -->
+                <div class="form-group">
+                    <label for="name" class="form-label">
+                        <i class="fa-solid fa-user-tag label-icon"></i> お名前
+                    </label>
+                    <input type="text" id="name" name="name" class="form-input" placeholder="あなたのニックネーム" required autocomplete="off">
+                </div>
+
+                <!-- Birthdate Input -->
+                <div class="form-group">
+                    <label for="birthdate" class="form-label">
+                        <i class="fa-solid fa-calendar-days label-icon"></i> 生年月日
+                    </label>
+                    <input type="date" id="birthdate" name="birthdate" class="form-input" required>
+                </div>
+
+                <!-- Genre Select (Custom chips/cards) -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fa-solid fa-sliders label-icon"></i> 曲のジャンル
+                    </label>
+                    <div class="mood-chips">
+                        {% for value, label in genre_labels.items() %}
+                        <label class="mood-chip" for="genre-{{ value }}">
+                            <input type="radio" id="genre-{{ value }}" name="genre" value="{{ value }}" {% if value == 'all' %}checked{% endif %}>
+                            <span class="chip-content">
+                                <span class="chip-text" style="font-size: 0.95rem; font-weight: 600;">{{ label }}</span>
+                            </span>
+                        </label>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Mood Select (Custom chips/cards) -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fa-solid fa-heart label-icon"></i> 今日の気分
+                    </label>
+                    <div class="mood-chips">
+                        <label class="mood-chip" for="mood-happy">
+                            <input type="radio" id="mood-happy" name="mood" value="happy" checked>
+                            <span class="chip-content">
+                                <span class="chip-emoji">🎉</span>
+                                <span class="chip-text">ワクワクしたい</span>
+                            </span>
+                        </label>
+                        <label class="mood-chip" for="mood-energy">
+                            <input type="radio" id="mood-energy" name="mood" value="energy">
+                            <span class="chip-content">
+                                <span class="chip-emoji">⚡</span>
+                                <span class="chip-text">元気がほしい</span>
+                            </span>
+                        </label>
+                        <label class="mood-chip" for="mood-calm">
+                            <input type="radio" id="mood-calm" name="mood" value="calm">
+                            <span class="chip-content">
+                                <span class="chip-emoji">🍃</span>
+                                <span class="chip-text">癒やされたい</span>
+                            </span>
+                        </label>
+                        <label class="mood-chip" for="mood-focus">
+                            <input type="radio" id="mood-focus" name="mood" value="focus">
+                            <span class="chip-content">
+                                <span class="chip-emoji">🎯</span>
+                                <span class="chip-text">集中したい</span>
+                            </span>
+                        </label>
+                        <label class="mood-chip" for="mood-emotional">
+                            <input type="radio" id="mood-emotional" name="mood" value="emotional">
+                            <span class="chip-content">
+                                <span class="chip-emoji">🌌</span>
+                                <span class="chip-text">感情に浸りたい</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="form-actions">
+                    <button type="submit" id="submit-btn" class="btn btn-primary">
+                        <span>運命の曲を占う</span>
+                        <i class="fa-solid fa-music btn-icon-right animate-pulse"></i>
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <footer class="app-footer">
+            <p>© 2026 今日の曲占い. All Rights Reserved. ※今日中なら何度占っても同じ結果になります。</p>
+        </footer>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-content">
+            <div class="loading-animation">
+                <span class="bar bar1"></span>
+                <span class="bar bar2"></span>
+                <span class="bar bar3"></span>
+                <span class="bar bar4"></span>
+                <span class="bar bar5"></span>
+            </div>
+            <p class="loading-text">あなたの運命のメロディを紡いでいます...</p>
+        </div>
+    </div>
+
+    <!-- Simple JS to handle loading animation on submit -->
+    <script>
+        document.querySelector('.fortune-form').addEventListener('submit', function() {
+            document.getElementById('loading-overlay').classList.add('active');
+        });
+    </script>
+</body>
+</html>

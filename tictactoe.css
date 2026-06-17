@@ -1,0 +1,511 @@
+/* ==========================================================================
+   Neon Crush - Premium Design System (Tic-Tac-Toe CSS)
+   ========================================================================== */
+
+.back-link-container {
+    text-align: left;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.back-link {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+}
+
+.back-link:hover {
+    color: #00f0ff;
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.4);
+    transform: translateX(-3px);
+}
+
+/* 変数定義 */
+:root {
+    --bg-color: #0a0a16;
+    --card-bg: rgba(18, 18, 38, 0.6);
+    --border-color: rgba(255, 255, 255, 0.08);
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    
+    /* ネオンカラー */
+    --color-o: #00f0ff;
+    --color-o-glow: rgba(0, 240, 255, 0.4);
+    --color-x: #ff007f;
+    --color-x-glow: rgba(255, 0, 127, 0.4);
+    
+    --color-primary: #8b5cf6;
+    --color-primary-glow: rgba(139, 92, 246, 0.4);
+    
+    /* フォント */
+    --font-heading: 'Space Grotesk', sans-serif;
+    --font-body: 'Outfit', sans-serif;
+    
+    /* 遷移効果 */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* リセット & ベース */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    overflow-x: hidden;
+    position: relative;
+    padding: 2rem 1rem;
+}
+
+/* 背景の星屑エフェクト */
+.stars-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-image: 
+        radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+        radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+        radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px);
+    background-size: 550px 550px, 350px 350px, 250px 250px;
+    background-position: 0 0, 40px 60px, 130px 270px;
+    opacity: 0.25;
+    animation: starMove 120s linear infinite;
+}
+
+@keyframes starMove {
+    from { background-position: 0 0, 40px 60px, 130px 270px; }
+    to { background-position: 550px 550px, 390px 410px, 380px 820px; }
+}
+
+/* ヘッダー */
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+#app-title {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.glow-text {
+    background: linear-gradient(135deg, var(--color-o), var(--color-primary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 8px var(--color-o-glow));
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.1em;
+}
+
+/* メインコンテナ */
+#game-container {
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* グラスモフィズムカード */
+.glass-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(12px) saturate(160%);
+    -webkit-backdrop-filter: blur(12px) saturate(160%);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    transition: var(--transition-smooth);
+}
+
+.glass-card:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(139, 92, 246, 0.1);
+}
+
+/* 設定セクション */
+.settings-card h2, .difficulty-select h3 {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+
+.mode-select {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.mode-select button {
+    flex: 1;
+}
+
+.difficulty-select {
+    border-top: 1px solid var(--border-color);
+    padding-top: 1rem;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.diff-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.diff-buttons button {
+    flex: 1;
+}
+
+/* スコアボード */
+.score-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.player-score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    width: 40%;
+    transition: var(--transition-smooth);
+}
+
+.player-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    letter-spacing: 0.05em;
+}
+
+.score-val {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+#score-p1-container .score-val {
+    color: var(--color-o);
+    text-shadow: 0 0 10px var(--color-o-glow);
+}
+
+#score-p2-container .score-val {
+    color: var(--color-x);
+    text-shadow: 0 0 10px var(--color-x-glow);
+}
+
+.score-divider {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.2);
+}
+
+/* アクティブなプレイヤーのハイライト */
+.player-score.active {
+    transform: scale(1.05);
+}
+
+.player-score.active #p1-name {
+    color: var(--color-o);
+}
+
+.player-score.active #p2-name {
+    color: var(--color-x);
+}
+
+/* ステータスメッセージ */
+#status-message {
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+    min-height: 1.5rem;
+}
+
+/* ゲームボード */
+.board-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 100%; /* 正方形アスペクト比維持 */
+}
+
+#game-board {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 12px;
+    border-radius: 24px;
+    border: 1px solid var(--border-color);
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.cell {
+    background: rgba(30, 30, 50, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    font-size: 3rem;
+    font-weight: 800;
+    font-family: var(--font-heading);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    outline: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* セルのホバー・アクティブ状態 */
+.cell:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 0 8px rgba(255, 255, 255, 0.1);
+}
+
+.cell:active:not(:disabled) {
+    transform: translateY(1px);
+}
+
+.cell:disabled {
+    cursor: not-allowed;
+}
+
+/* セル内のOとXの描画（擬似要素とアニメーション） */
+.cell[data-marker="O"]::before {
+    content: "O";
+    color: var(--color-o);
+    text-shadow: 0 0 15px var(--color-o-glow);
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.cell[data-marker="X"]::before {
+    content: "X";
+    color: var(--color-x);
+    text-shadow: 0 0 15px var(--color-x-glow);
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* 勝利ライン（HTML上で描画する場合、絶対配置で制御） */
+.winning-line {
+    position: absolute;
+    background: linear-gradient(90deg, var(--color-primary), #ec4899);
+    border-radius: 4px;
+    z-index: 10;
+    pointer-events: none;
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.8);
+    transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+    transform-origin: left center;
+}
+
+/* ボタン共通 */
+.btn {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 0.75rem 1.25rem;
+    border-radius: 12px;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn.active {
+    background: linear-gradient(135deg, var(--color-primary), rgba(139, 92, 246, 0.4));
+    border-color: var(--color-primary);
+    box-shadow: 0 0 15px var(--color-primary-glow);
+}
+
+.btn-sm {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+    border-radius: 8px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--color-primary), #ec4899);
+    color: white;
+    border: none;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.6);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid transparent;
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.02);
+    color: var(--text-primary);
+}
+
+/* コントロール */
+#controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+#controls button {
+    width: 100%;
+}
+
+/* モーダル */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    background: rgba(5, 5, 15, 0.8);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    padding: 2.5rem 2rem;
+    transform: scale(0.9);
+    animation: modalAppear 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes modalAppear {
+    to {
+        transform: scale(1);
+    }
+}
+
+.modal-content h2 {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--color-o), var(--color-x));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#modal-message {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: var(--text-primary);
+}
+
+.modal-content button {
+    width: 100%;
+}
+
+/* 紙吹雪キャンバス */
+#confetti-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 99;
+}
+
+/* フッター */
+footer {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+/* ユーティリティ */
+.hidden {
+    display: none !important;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* スマホ等レスポンシブ微調整 */
+@media (max-width: 480px) {
+    #app-title {
+        font-size: 2.8rem;
+    }
+    
+    .glass-card {
+        padding: 1.25rem;
+    }
+}

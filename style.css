@@ -1,0 +1,289 @@
+/* ==========================================================================
+   Neon Arcade - Portal Page Style
+   ========================================================================== */
+
+:root {
+    --bg-color: #070716;
+    --card-bg: rgba(15, 15, 35, 0.6);
+    --border-color: rgba(255, 255, 255, 0.08);
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    
+    /* ネオンカラー */
+    --neon-cyan: #00f0ff;
+    --neon-cyan-glow: rgba(0, 240, 255, 0.35);
+    --neon-pink: #ff007f;
+    --neon-pink-glow: rgba(255, 0, 127, 0.35);
+    --neon-purple: #8b5cf6;
+    --neon-purple-glow: rgba(139, 92, 246, 0.35);
+    
+    --font-heading: 'Space Grotesk', sans-serif;
+    --font-body: 'Outfit', sans-serif;
+    
+    --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* リセット */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    overflow-x: hidden;
+    position: relative;
+    padding: 3rem 1.5rem;
+}
+
+/* 背景星空 */
+.stars-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    background-image: 
+        radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+        radial-gradient(white, rgba(255,255,255,.1) 1px, transparent 25px);
+    background-size: 500px 500px, 300px 300px;
+    background-position: 0 0, 40px 60px;
+    opacity: 0.2;
+    animation: starMove 180s linear infinite;
+}
+
+@keyframes starMove {
+    from { background-position: 0 0, 40px 60px; }
+    to { background-position: 500px 500px, 340px 410px; }
+}
+
+/* ヘッダー */
+header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+#app-title {
+    font-family: var(--font-heading);
+    font-size: 3.8rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    margin-bottom: 0.75rem;
+}
+
+.glow-text {
+    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.5));
+}
+
+.subtitle {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.08em;
+}
+
+/* ポータルコンテナ */
+#portal-container {
+    width: 100%;
+    max-width: 960px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+/* ゲームカード */
+.game-card-wrapper {
+    perspective: 1000px;
+}
+
+.game-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(15px) saturate(170%);
+    -webkit-backdrop-filter: blur(15px) saturate(170%);
+    border: 1px solid var(--border-color);
+    border-radius: 28px;
+    padding: 2.5rem 2rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    box-shadow: 0 15px 35px 0 rgba(0, 0, 0, 0.35);
+    transition: var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+}
+
+.game-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(800px circle at var(--x, 0px) var(--y, 0px), rgba(255,255,255,0.06), transparent 40%);
+    pointer-events: none;
+}
+
+/* カードホバーアニメーション */
+.game-card-wrapper:hover .game-card {
+    transform: translateY(-8px) scale(1.02);
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 20px 45px 0 rgba(0, 0, 0, 0.5), 0 0 30px 0 rgba(139, 92, 246, 0.15);
+}
+
+.game-badge {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 0.35rem 0.85rem;
+    border-radius: 20px;
+    letter-spacing: 0.08em;
+    margin-bottom: 1.5rem;
+}
+
+.neon-cyan-badge {
+    background: rgba(0, 240, 255, 0.1);
+    color: var(--neon-cyan);
+    border: 1px solid rgba(0, 240, 255, 0.2);
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.1);
+}
+
+.neon-pink-badge {
+    background: rgba(255, 0, 127, 0.1);
+    color: var(--neon-pink);
+    border: 1px solid rgba(255, 0, 127, 0.2);
+    box-shadow: 0 0 10px rgba(255, 0, 127, 0.1);
+}
+
+.game-icon {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.1));
+}
+
+.game-card h2 {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.05em;
+}
+
+.game-card-wrapper:nth-child(1) h2 {
+    color: var(--neon-cyan);
+    text-shadow: 0 0 10px var(--neon-cyan-glow);
+}
+
+.game-card-wrapper:nth-child(2) h2 {
+    color: var(--neon-pink);
+    text-shadow: 0 0 10px var(--neon-pink-glow);
+}
+
+.game-desc {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    flex-grow: 1;
+}
+
+.game-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.game-features span {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #e2e8f0;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 0.3rem 0.65rem;
+    border-radius: 8px;
+}
+
+/* ボタン */
+.btn {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    border-radius: 16px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    transition: var(--transition-smooth);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+    color: #fff;
+    border: none;
+    box-shadow: 0 4px 20px rgba(0, 240, 255, 0.25);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 240, 255, 0.45);
+}
+
+.btn-secondary-neon {
+    background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+    color: #fff;
+    border: none;
+    box-shadow: 0 4px 20px rgba(255, 0, 127, 0.25);
+}
+
+.btn-secondary-neon:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(255, 0, 127, 0.45);
+}
+
+.btn-play .arrow {
+    transition: transform 0.3s ease;
+}
+
+.btn-play:hover .arrow {
+    transform: translateX(4px);
+}
+
+/* フッター */
+footer {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* レスポンシブ */
+@media (max-width: 768px) {
+    #portal-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 0 0.5rem;
+    }
+    
+    #app-title {
+        font-size: 2.8rem;
+    }
+}

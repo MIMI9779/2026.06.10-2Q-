@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ネオン・ストライカー - 究極のスペースシューティングゲーム</title>
+    <meta name="description" content="洗練されたネオンデザインと爽快なパーティクル演出、Web Audio音響を搭載した極上のスペースシューティングゲーム。ブラウザで今すぐプレイ！">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="shooting.css">
+</head>
+<body>
+    <div class="stars-background"></div>
+
+    <header>
+        <div class="back-link-container">
+            <a href="index.html" class="back-link">&larr; ランチャーに戻る</a>
+        </div>
+        <h1 id="app-title">NEON <span class="glow-text">STRIKER</span></h1>
+        <p class="subtitle">極限のネオン・シューティング・バトル</p>
+    </header>
+
+    <main id="game-container">
+        <!-- スコア・シールドゲージ表示用オーバーレイ -->
+        <div id="game-hud" class="hud-container hidden">
+            <div class="hud-item score-box">
+                <span class="hud-label">SCORE</span>
+                <span id="hud-score" class="hud-value">000000</span>
+            </div>
+            
+            <div class="hud-item shield-box">
+                <span class="hud-label">SHIELD</span>
+                <div class="shield-bar-wrapper">
+                    <div id="hud-shield-bar" class="shield-bar" style="width: 100%;"></div>
+                </div>
+            </div>
+
+            <div class="hud-item bomb-box">
+                <span class="hud-label">BOMB</span>
+                <div id="hud-bombs" class="bomb-icons">
+                    <span class="bomb-icon active">💣</span>
+                    <span class="bomb-icon active">💣</span>
+                    <span class="bomb-icon active">💣</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ゲーム画面キャンバス -->
+        <div class="canvas-wrapper">
+            <canvas id="game-canvas" width="480" height="640"></canvas>
+
+            <!-- スタート / ゲームオーバー画面 (グラスモフィズム) -->
+            <div id="screen-start" class="screen-overlay">
+                <div class="glass-card menu-card">
+                    <h2>NEON STRIKER</h2>
+                    <p class="desc">ネオンの嵐を駆け抜け、コアを破壊せよ</p>
+                    
+                    <div class="controls-guide">
+                        <h3>操作方法</h3>
+                        <p>💻 <strong>キーボード:</strong> 矢印キー / WASD (移動) &amp; Space (ショット) &amp; B (ボム)</p>
+                        <p>🖱️ <strong>マウス:</strong> ドラッグ (移動) &amp; クリック (ボム)</p>
+                        <p>📱 <strong>スマホ:</strong> タッチドラッグ (移動) &amp; ボムボタンタップ</p>
+                    </div>
+
+                    <div class="audio-toggle-container">
+                        <label class="switch-label">
+                            <input type="checkbox" id="audio-enable" checked>
+                            <span class="switch-custom"></span>
+                            BGM・効果音を有効化
+                        </label>
+                    </div>
+
+                    <button id="btn-start" class="btn btn-primary btn-lg">ミッション開始</button>
+                </div>
+            </div>
+
+            <div id="screen-gameover" class="screen-overlay hidden">
+                <div class="glass-card menu-card">
+                    <h2 class="alert-text">GAME OVER</h2>
+                    <p class="final-score-desc">最終スコア</p>
+                    <p id="final-score" class="final-score-val">0</p>
+                    <p id="high-score-msg" class="high-score-val hidden">🎉 ハイスコア更新！ 🎉</p>
+                    
+                    <button id="btn-restart" class="btn btn-primary btn-lg">リトライ</button>
+                </div>
+            </div>
+
+            <!-- スマホ用の仮想ボムボタン -->
+            <button id="btn-mobile-bomb" class="mobile-bomb-btn hidden">BOMB</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Neon Striker. Premium Game Experience.</p>
+    </footer>
+
+    <script src="shooting.js"></script>
+</body>
+</html>
