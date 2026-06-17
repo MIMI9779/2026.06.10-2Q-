@@ -1,19 +1,19 @@
 /* ==========================================================================
-   Design System & Global Variables
+   Design System & Global Variables - Pink Cosmic Theme
    ========================================================================== */
 :root {
-    --bg-primary: #0b071a;
-    --bg-secondary: #160f2e;
+    --bg-primary: #180816;      /* Deep dark magenta/purple black */
+    --bg-secondary: #2c1228;    /* Rich rose burgundy */
     --text-primary: #ffffff;
-    --text-muted: #a39cb5;
+    --text-muted: #e9ccd9;      /* Soft lavender pink muted text */
     
-    --primary-gradient: linear-gradient(135deg, #8a2387, #e94057, #f27121);
-    --secondary-gradient: linear-gradient(135deg, #3a1c71, #d76d77, #ffaf7b);
-    --neon-blue: #00f2fe;
-    --neon-pink: #ff007f;
-    --glass-bg: rgba(255, 255, 255, 0.04);
-    --glass-border: rgba(255, 255, 255, 0.08);
-    --glass-shadow: rgba(0, 0, 0, 0.4);
+    --primary-gradient: linear-gradient(135deg, #ff2a85, #ff62a5, #ffa0cc);
+    --secondary-gradient: linear-gradient(135deg, #d31c6d, #f857a6, #ff5858);
+    --neon-blue: #ffa0cc;       /* Now a bright light pink accent */
+    --neon-pink: #ff2a85;       /* Core neon pink */
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 42, 133, 0.15); /* Pink glass border */
+    --glass-shadow: rgba(25, 4, 22, 0.6);
     --font-jp: 'Noto Sans JP', sans-serif;
     --font-en: 'Outfit', sans-serif;
     --transition-smooth: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -31,9 +31,9 @@
 body {
     background-color: var(--bg-primary);
     background-image: 
-        radial-gradient(at 10% 20%, rgba(138, 35, 135, 0.15) 0px, transparent 50%),
-        radial-gradient(at 90% 80%, rgba(0, 242, 254, 0.12) 0px, transparent 50%),
-        radial-gradient(at 50% 50%, rgba(233, 64, 87, 0.08) 0px, transparent 50%);
+        radial-gradient(at 10% 20%, rgba(255, 42, 133, 0.14) 0px, transparent 50%),
+        radial-gradient(at 90% 80%, rgba(255, 98, 165, 0.1) 0px, transparent 50%),
+        radial-gradient(at 50% 50%, rgba(248, 87, 166, 0.06) 0px, transparent 50%);
     background-attachment: fixed;
     color: var(--text-primary);
     font-family: var(--font-jp);
@@ -60,7 +60,7 @@ body {
     position: absolute;
     border-radius: 50%;
     filter: blur(100px);
-    opacity: 0.2;
+    opacity: 0.22;
     mix-blend-mode: screen;
 }
 
@@ -69,7 +69,7 @@ body {
     left: 10%;
     width: 300px;
     height: 300px;
-    background: #8a2387;
+    background: #ff2a85;
     animation: float-orb 15s ease-in-out infinite alternate;
 }
 
@@ -78,7 +78,7 @@ body {
     right: 10%;
     width: 400px;
     height: 400px;
-    background: #00f2fe;
+    background: #f857a6;
     animation: float-orb 20s ease-in-out infinite alternate-reverse;
 }
 
@@ -115,7 +115,7 @@ body {
 
 .music-note {
     position: absolute;
-    color: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.08);
     font-size: 1.8rem;
     animation: float-note 12s linear infinite;
 }
@@ -177,15 +177,15 @@ body {
 }
 
 @keyframes logo-shimmer {
-    0% { filter: hue-rotate(0deg) drop-shadow(0 0 5px rgba(233, 64, 87, 0.2)); }
-    100% { filter: hue-rotate(360deg) drop-shadow(0 0 15px rgba(0, 242, 254, 0.6)); }
+    0% { filter: hue-rotate(0deg) drop-shadow(0 0 5px rgba(255, 42, 133, 0.2)); }
+    100% { filter: hue-rotate(15deg) drop-shadow(0 0 15px rgba(255, 98, 165, 0.5)); }
 }
 
 .app-title {
     font-size: 2.8rem;
     font-weight: 700;
     letter-spacing: -0.5px;
-    background: linear-gradient(to right, #ffffff, #e3d2ff);
+    background: linear-gradient(to right, #ffffff, #ffe3f1);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -238,7 +238,7 @@ body {
     background: linear-gradient(
         to right,
         rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.03) 50%,
+        rgba(255, 255, 255, 0.02) 50%,
         rgba(255, 255, 255, 0) 100%
     );
     transform: rotate(30deg);
@@ -263,7 +263,7 @@ body {
 .form-label {
     font-size: 1rem;
     font-weight: 600;
-    color: #dfdbe5;
+    color: #fcecf4;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -275,7 +275,7 @@ body {
 
 .form-input {
     background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 42, 133, 0.15);
     border-radius: 12px;
     padding: 1rem 1.2rem;
     color: var(--text-primary);
@@ -287,8 +287,8 @@ body {
 }
 
 .form-input:focus {
-    border-color: var(--neon-blue);
-    box-shadow: 0 0 15px rgba(0, 242, 254, 0.25);
+    border-color: var(--neon-pink);
+    box-shadow: 0 0 15px rgba(255, 42, 133, 0.25);
     background: rgba(0, 0, 0, 0.4);
 }
 
@@ -314,8 +314,8 @@ body {
     align-items: center;
     justify-content: center;
     padding: 1.2rem 0.8rem;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid rgba(255, 255, 255, 0.04);
     border-radius: 16px;
     transition: var(--transition-smooth);
     height: 100%;
@@ -336,15 +336,15 @@ body {
 
 /* Hover & Selected States */
 .mood-chip:hover .chip-content {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 42, 133, 0.2);
     transform: translateY(-2px);
 }
 
 .mood-chip input[type="radio"]:checked + .chip-content {
-    background: rgba(138, 35, 135, 0.15);
+    background: rgba(255, 42, 133, 0.15);
     border-color: var(--neon-pink);
-    box-shadow: 0 0 15px rgba(255, 0, 127, 0.25);
+    box-shadow: 0 0 15px rgba(255, 42, 133, 0.25);
 }
 
 .mood-chip input[type="radio"]:checked + .chip-content .chip-text {
@@ -379,7 +379,7 @@ body {
 .btn-primary {
     background: var(--primary-gradient);
     color: white;
-    box-shadow: 0 5px 20px rgba(233, 64, 87, 0.4);
+    box-shadow: 0 5px 20px rgba(255, 42, 133, 0.4);
     position: relative;
     overflow: hidden;
     z-index: 1;
@@ -400,7 +400,7 @@ body {
 
 .btn-primary:hover {
     transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 8px 25px rgba(233, 64, 87, 0.6);
+    box-shadow: 0 8px 25px rgba(255, 42, 133, 0.55);
 }
 
 .btn-primary:hover::before {
@@ -412,29 +412,29 @@ body {
 }
 
 .btn-secondary {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #dfdbe5;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #fcecf4;
 }
 
 .btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 42, 133, 0.3);
     color: #ffffff;
     transform: translateY(-2px);
 }
 
 .btn-youtube {
-    background: rgba(255, 0, 0, 0.15);
-    border: 1px solid rgba(255, 0, 0, 0.3);
-    color: #ffcccc;
+    background: rgba(255, 0, 80, 0.12);
+    border: 1px solid rgba(255, 0, 80, 0.25);
+    color: #ffd4e2;
 }
 
 .btn-youtube:hover {
-    background: rgba(255, 0, 0, 0.3);
-    border-color: #ff0000;
+    background: rgba(255, 0, 80, 0.22);
+    border-color: #ff2a6d;
     color: #ffffff;
-    box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+    box-shadow: 0 0 15px rgba(255, 42, 109, 0.25);
 }
 
 .btn-icon-right {
@@ -451,11 +451,11 @@ body {
 }
 
 .alert-error {
-    background: rgba(233, 64, 87, 0.15);
-    border: 1px solid rgba(233, 64, 87, 0.3);
+    background: rgba(255, 42, 133, 0.15);
+    border: 1px solid rgba(255, 42, 133, 0.3);
     border-radius: 12px;
     padding: 1rem 1.2rem;
-    color: #ff9fb2;
+    color: #ffa4c5;
     font-size: 0.9rem;
     display: flex;
     align-items: center;
@@ -472,7 +472,7 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(11, 7, 26, 0.95);
+    background: rgba(24, 8, 22, 0.97);
     z-index: 9999;
     display: flex;
     align-items: center;
@@ -545,7 +545,7 @@ body {
     font-size: 2.3rem;
     font-weight: 700;
     margin-bottom: 0.8rem;
-    background: linear-gradient(to right, #ffffff, #d3c2ff);
+    background: linear-gradient(to right, #ffffff, #ffdbe8);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -567,9 +567,20 @@ body {
 }
 
 .badge-mood {
-    background: rgba(0, 242, 254, 0.1);
-    border: 1px solid rgba(0, 242, 254, 0.3);
+    background: rgba(255, 42, 133, 0.12);
+    border: 1px solid rgba(255, 42, 133, 0.3);
     color: var(--neon-blue);
+}
+
+/* Newly introduced Genre selected badge class replacing inline style */
+.badge-genre-selected {
+    background: rgba(211, 28, 109, 0.12);
+    border: 1px solid rgba(211, 28, 109, 0.3);
+    color: #ff9cbd;
+    padding: 0.35rem 0.9rem;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    font-weight: 700;
 }
 
 .badge-genre {
@@ -616,7 +627,7 @@ body {
     border-radius: 50%;
     background: linear-gradient(135deg, var(--neon-pink), var(--accent-color, var(--neon-blue)));
     filter: blur(12px);
-    opacity: 0.5;
+    opacity: 0.55;
     z-index: 1;
     animation: rotate-ring 8s linear infinite;
 }
@@ -632,8 +643,8 @@ body {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background: #120b24;
-    border: 2px solid rgba(255, 255, 255, 0.1);
+    background: #1e091c;
+    border: 2px solid rgba(255, 42, 133, 0.15);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -653,7 +664,7 @@ body {
     font-size: 1.6rem;
     font-weight: 700;
     margin: 0.2rem 0;
-    background: linear-gradient(135deg, #ffffff, #d5c8ff);
+    background: linear-gradient(135deg, #ffffff, #ffeef4);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-align: center;
@@ -706,7 +717,7 @@ body {
 }
 
 .fortune-advice p {
-    color: #dfdbe5;
+    color: #fcecf4;
     font-size: 0.95rem;
     line-height: 1.6;
 }
@@ -745,9 +756,9 @@ body {
     position: relative;
     width: 190px;
     height: 190px;
-    background: #110d21;
+    background: #1e091c;
     border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 42, 133, 0.1);
     box-shadow: 0 10px 25px rgba(0,0,0,0.5);
     display: flex;
     justify-content: center;
@@ -817,7 +828,7 @@ body {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: #110d21;
+    background: #1e091c;
     z-index: 3;
 }
 
@@ -828,8 +839,8 @@ body {
     right: 25px;
     width: 45px;
     height: 70px;
-    border-left: 3px solid #b3b3b3;
-    border-top: 3px solid #b3b3b3;
+    border-left: 3px solid #dcdcdc;
+    border-top: 3px solid #dcdcdc;
     border-top-left-radius: 10px;
     transform: rotate(20deg);
     transform-origin: top right;
@@ -845,7 +856,7 @@ body {
     left: -5px;
     width: 12px;
     height: 8px;
-    background: #666;
+    background: #777;
     border-radius: 2px;
     transform: rotate(-20deg);
 }
@@ -873,13 +884,13 @@ body {
 
 .song-artist {
     font-size: 1rem;
-    color: var(--neon-blue);
+    color: var(--neon-pink);
     font-weight: 600;
 }
 
 /* Lyrics Snippet Block */
 .lyrics-quote {
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.25);
     border-left: 3px solid var(--accent-color, var(--neon-pink));
     padding: 0.8rem 1.2rem;
     border-radius: 0 8px 8px 0;
@@ -888,7 +899,7 @@ body {
 .lyrics-text {
     font-size: 0.95rem;
     font-style: italic;
-    color: #dfdbe5;
+    color: #fcecf4;
     line-height: 1.5;
     margin-bottom: 0.3rem;
 }
@@ -915,7 +926,7 @@ body {
 
 .lucky-card {
     background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 42, 133, 0.08);
     border-radius: 12px;
     padding: 0.8rem 1rem;
     display: flex;
@@ -971,7 +982,7 @@ body {
     text-align: center;
     margin-top: auto;
     padding-top: 3rem;
-    color: rgba(255, 255, 255, 0.25);
+    color: rgba(255, 160, 204, 0.2);
     font-size: 0.75rem;
     line-height: 1.5;
 }
@@ -984,9 +995,9 @@ body {
     bottom: -60px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(22, 15, 46, 0.9);
-    border: 1px solid var(--neon-blue);
-    box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+    background: rgba(44, 18, 40, 0.95);
+    border: 1px solid var(--neon-pink);
+    box-shadow: 0 0 15px rgba(255, 42, 133, 0.3);
     color: white;
     padding: 0.8rem 1.5rem;
     border-radius: 30px;
