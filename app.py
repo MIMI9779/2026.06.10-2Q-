@@ -72,13 +72,29 @@ def index():
             return render_template(
                 "index.html", 
                 error="お名前と生年月日を入力してください。", 
+                name=name,
+                birthdate=birthdate,
+                selected_mood=mood,
+                selected_genre=genre,
                 mood_labels=MOOD_LABELS,
                 genre_labels=GENRE_LABELS
             )
         
         return redirect(url_for("result", name=name, birthdate=birthdate, mood=mood, genre=genre))
         
-    return render_template("index.html", mood_labels=MOOD_LABELS, genre_labels=GENRE_LABELS)
+    name = request.args.get("name", "").strip()
+    birthdate = request.args.get("birthdate", "")
+    mood = request.args.get("mood", "happy")
+    genre = request.args.get("genre", "all")
+    return render_template(
+        "index.html", 
+        name=name,
+        birthdate=birthdate,
+        selected_mood=mood,
+        selected_genre=genre,
+        mood_labels=MOOD_LABELS,
+        genre_labels=GENRE_LABELS
+    )
 
 @app.route("/result")
 def result():
@@ -150,6 +166,9 @@ def result():
     return render_template(
         "result.html",
         name=name,
+        birthdate=birthdate,
+        mood=mood,
+        genre=genre,
         mood_label=mood_label,
         genre_label=genre_label,
         song_genre_label=song_genre_label,

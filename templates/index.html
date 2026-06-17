@@ -51,7 +51,7 @@
                     <label for="name" class="form-label">
                         <i class="fa-solid fa-user-tag label-icon"></i> お名前
                     </label>
-                    <input type="text" id="name" name="name" class="form-input" placeholder="あなたのニックネーム" required autocomplete="off">
+                    <input type="text" id="name" name="name" class="form-input" placeholder="あなたのニックネーム" required autocomplete="off" value="{{ name or '' }}">
                 </div>
 
                 <!-- Birthdate Input -->
@@ -59,7 +59,7 @@
                     <label for="birthdate" class="form-label">
                         <i class="fa-solid fa-calendar-days label-icon"></i> 生年月日
                     </label>
-                    <input type="date" id="birthdate" name="birthdate" class="form-input" required>
+                    <input type="date" id="birthdate" name="birthdate" class="form-input" required value="{{ birthdate or '' }}">
                 </div>
 
                 <!-- Genre Select (Custom chips/cards) -->
@@ -70,7 +70,7 @@
                     <div class="mood-chips">
                         {% for value, label in genre_labels.items() %}
                         <label class="mood-chip" for="genre-{{ value }}">
-                            <input type="radio" id="genre-{{ value }}" name="genre" value="{{ value }}" {% if value == 'all' %}checked{% endif %}>
+                            <input type="radio" id="genre-{{ value }}" name="genre" value="{{ value }}" {% if value == selected_genre %}checked{% endif %}>
                             <span class="chip-content">
                                 <span class="chip-text" style="font-size: 0.95rem; font-weight: 600;">{{ label }}</span>
                             </span>
@@ -86,35 +86,35 @@
                     </label>
                     <div class="mood-chips">
                         <label class="mood-chip" for="mood-happy">
-                            <input type="radio" id="mood-happy" name="mood" value="happy" checked>
+                            <input type="radio" id="mood-happy" name="mood" value="happy" {% if selected_mood == 'happy' %}checked{% endif %}>
                             <span class="chip-content">
                                 <span class="chip-emoji">🎉</span>
                                 <span class="chip-text">ワクワクしたい</span>
                             </span>
                         </label>
                         <label class="mood-chip" for="mood-energy">
-                            <input type="radio" id="mood-energy" name="mood" value="energy">
+                            <input type="radio" id="mood-energy" name="mood" value="energy" {% if selected_mood == 'energy' %}checked{% endif %}>
                             <span class="chip-content">
                                 <span class="chip-emoji">⚡</span>
                                 <span class="chip-text">元気がほしい</span>
                             </span>
                         </label>
                         <label class="mood-chip" for="mood-calm">
-                            <input type="radio" id="mood-calm" name="mood" value="calm">
+                            <input type="radio" id="mood-calm" name="mood" value="calm" {% if selected_mood == 'calm' %}checked{% endif %}>
                             <span class="chip-content">
                                 <span class="chip-emoji">🍃</span>
                                 <span class="chip-text">癒やされたい</span>
                             </span>
                         </label>
                         <label class="mood-chip" for="mood-focus">
-                            <input type="radio" id="mood-focus" name="mood" value="focus">
+                            <input type="radio" id="mood-focus" name="mood" value="focus" {% if selected_mood == 'focus' %}checked{% endif %}>
                             <span class="chip-content">
                                 <span class="chip-emoji">🎯</span>
                                 <span class="chip-text">集中したい</span>
                             </span>
                         </label>
                         <label class="mood-chip" for="mood-emotional">
-                            <input type="radio" id="mood-emotional" name="mood" value="emotional">
+                            <input type="radio" id="mood-emotional" name="mood" value="emotional" {% if selected_mood == 'emotional' %}checked{% endif %}>
                             <span class="chip-content">
                                 <span class="chip-emoji">🌌</span>
                                 <span class="chip-text">感情に浸りたい</span>

@@ -136,7 +136,7 @@
                 <span>結果をシェア・コピー</span>
             </button>
 
-            <a href="{{ url_for('index') }}" class="btn btn-primary" id="retry-btn">
+            <a href="{{ url_for('index', name=name, birthdate=birthdate, mood=mood, genre=genre) }}" class="btn btn-primary" id="retry-btn">
                 <i class="fa-solid fa-rotate-left"></i>
                 <span>もう一度占う</span>
             </a>
